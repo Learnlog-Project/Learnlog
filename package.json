@@ -1,0 +1,26 @@
+{
+  "name": "learnlog",
+  "version": "0.0.1",
+  "description": "Breadcrumbs of my learning journey",
+  "type": "module",
+  "scripts": {
+    "parse": "contentlayer build",
+    "node-version": "node -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artu-hnrq/learnlog.git"
+  },
+  "keywords": [
+    "learning",
+    "code"
+  ],
+  "author": "Arthur Henrique <Arthur.Henrique.Della.Fraga@gmail.com>",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@contentlayer/source-files": "^0.3.4",
+    "@types/node": "^20.10.6",
+    "contentlayer": "^0.3.4",
+    "ts-node": "^10.9.2"
+  }
+}
