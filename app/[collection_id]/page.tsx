@@ -2,32 +2,24 @@ import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
-import SDK from "raindrop-sdk"
+import sdk from "@/lib/raindrop"
 
 
-export default async function IndexPage() {
+export default async function IndexPage({ params }: { params: { collection_id: number } }) {
 
-  const sdk = new SDK(process.env.RAINDROP_API_TOKEN!)
-
-  const collections = await sdk.collections()
-  console.log(collections)
+  let collection = await sdk.collection(params.collection_id)
+  collection = collection.item
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-      {collections.items.map((collection: any) => {
-        return (
-          <Link href={`/${collection._id}`} key={collection._id}>
-            <div className="flex flex-col items-start gap-2">
-              <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-                {collection.title}
-              </h1>
-              <p className="max-w-[700px] text-lg text-muted-foreground">
-                {collection.description}
-              </p>
-            </div>
-          </Link>
-        )
-      })}
+      <div className="flex flex-col items-start gap-2">
+        <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
+          {collection.title}
+        </h1>
+        <p className="max-w-[700px] text-lg text-muted-foreground">
+          {collection.description}
+        </p>
+      </div>
     </section>
   )
 }
