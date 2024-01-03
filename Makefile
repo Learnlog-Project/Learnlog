@@ -15,13 +15,18 @@ GNUMAKEFLAGS += --no-print-directory
 
 # Path record
 ROOT_DIR ?= $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+SOURCE_DIR ?= src
 DATA_DIR ?= .contentlayer/
-CONTENT_DIR ?= content/
+CONTENT_DIR ?= content
+LIB_DIR ?= lib
+DIST_DIR ?= dist
 
 # Target files
 ENV_FILE ?= .env
 
 EPHEMERAL_ARCHIVES ?= \
+	$(DIST_DIR) \
+	$(LIB_DIR) \
 	**/$(DATA_DIR)
 
 # Executables definition
@@ -42,6 +47,14 @@ init:: veryclean ## Initialize development environment
 
 parse:: ## Transpile source code
 	npm run parse
+	cp --force --recursive $(DATA_DIR) $(SOURCE_DIR)
+
+build:: parse ## Build typescript code
+	npm run build
+	cp --force --recursive $(DATA_DIR) $(LIB_DIR)
+
+dev:: parse ## Run typescript code
+	npm run dev
 
 clean:: ## Delete project ephemeral archives
 	-rm -fr $(EPHEMERAL_ARCHIVES)

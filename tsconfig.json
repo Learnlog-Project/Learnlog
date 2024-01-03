@@ -17,6 +17,7 @@
     },
     "include": [
         "./src/**/*.ts",
+        "./.contentlayer/**.ts",
     ],
     "exclude": [
         "node_modules",
